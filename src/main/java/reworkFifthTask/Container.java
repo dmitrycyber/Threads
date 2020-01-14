@@ -29,9 +29,7 @@ public class Container {
 
     public Queue<String> getRandomQueue(){
         Queue<String> queue = queueList.get(random.nextInt(10));
-        if (queue.isEmpty()){
 
-        }
         return queue;
     }
 }

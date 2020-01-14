@@ -4,7 +4,6 @@ package reworkFifthTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.Queue;
 import java.util.concurrent.*;
 
 public class Main {
@@ -13,22 +12,18 @@ public class Main {
         List<String> userNameList = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         List<Callable<Integer>> listOfTasks = new ArrayList<>();
-        boolean isCanceled = true;
 
-
-        while (isCanceled){
-
-            if (userNameList.size() == 1000_000){
-                isCanceled = false;
+        long before = System.nanoTime();
+        while (!isEmptyQueues(container)){
+            if (userNameList.size() == 1000000){
+                break;
             }
             executorService.submit(new Task(container, userNameList));
-            System.out.println("usersSize is " + userNameList.size());
-
+            System.out.println("current count of users is " + userNameList.size());
         }
-
-        //sleep(1);
-
-        System.out.println(userNameList.size());
+        long after = System.nanoTime();
+        System.out.println("Time of executing is: " + (after - before) + " nanoseconds");
+        System.out.println("Count of usernames is: " + userNameList.size());
 
     }
 
@@ -38,5 +33,14 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isEmptyQueues(Container container){
+        for (int i = 0; i < container.getQueueList().size(); i++) {
+            if (!container.getQueueList().get(i).isEmpty()){
+                return false;
+            }
+        }
+        return true;
     }
 }

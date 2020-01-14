@@ -22,18 +22,18 @@ public class Task implements Runnable {
 
     @Override
     public void run() {
-        String poll;
-        synchronized (queue){
-            username = queue.element();
-            synchronized (username){
-                System.out.println(queue.element() + "_done_by_thread_" + Thread.currentThread().getId());
-                poll = queue.poll();
-            }
+        if (queue.isEmpty()) {
+            return;
         }
-
-        System.out.println("TUT");
-
-        userNameList.add(poll);
+        String poll;
+        username = queue.element();
+        synchronized (queue) {
+            System.out.println(queue.element() + "_done_by_thread_" + Thread.currentThread().getId());
+            poll = queue.poll();
+        }
+        synchronized (userNameList) {
+            userNameList.add(poll);
+        }
 
 
     }
