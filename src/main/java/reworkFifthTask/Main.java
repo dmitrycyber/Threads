@@ -11,36 +11,18 @@ public class Main {
         Container container = new Container();
         List<String> userNameList = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        List<Callable<Integer>> listOfTasks = new ArrayList<>();
-
-        long before = System.nanoTime();
-        while (!isEmptyQueues(container)){
-            if (userNameList.size() == 1000000){
-                break;
-            }
+        for (int i = 0; i < 10; i++) {
             executorService.submit(new Task(container, userNameList));
-            System.out.println("current count of users is " + userNameList.size());
         }
-        long after = System.nanoTime();
-        System.out.println("Time of executing is: " + (after - before) + " nanoseconds");
+        sleep(4000);
         System.out.println("Count of usernames is: " + userNameList.size());
-
     }
 
-    private static void sleep(int seconds) {
+    private static void sleep(int millis) {
         try {
-            TimeUnit.SECONDS.sleep(seconds);
+            TimeUnit.MILLISECONDS.sleep(millis);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    private static boolean isEmptyQueues(Container container){
-        for (int i = 0; i < container.getQueueList().size(); i++) {
-            if (!container.getQueueList().get(i).isEmpty()){
-                return false;
-            }
-        }
-        return true;
     }
 }

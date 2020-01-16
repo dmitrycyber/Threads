@@ -12,12 +12,12 @@ public class Main {
             listOfQueues.add(generateQueue());
         }
 
-        long before = System.nanoTime();
+        long before = System.currentTimeMillis();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<List<String>> future = executorService.submit(new Serve(listOfQueues));
         List<String> listOfUserNames = future.get();
-        long after = System.nanoTime();
-        System.out.println("Time of executing is: " + (after - before) + " nanoseconds");
+        long after = System.currentTimeMillis();
+        System.out.println("Time of executing is: " + (after - before) + " milliseconds");
         System.out.println("Count of usernames is: " + listOfUserNames.size());
 
         ExecutorService executorService1 = Executors.newFixedThreadPool(10);
