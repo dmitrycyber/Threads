@@ -20,9 +20,6 @@ public class Main {
         System.out.println("Time of executing is: " + (after - before) + " milliseconds");
         System.out.println("Count of usernames is: " + listOfUserNames.size());
 
-        ExecutorService executorService1 = Executors.newFixedThreadPool(10);
-        executorService1.submit(new Serve(listOfQueues));
-
         executorService.shutdown();
 
 
