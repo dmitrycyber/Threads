@@ -29,7 +29,7 @@ public class Main {
         Queue<String> queue = new LinkedList<>();
         Random random = new Random();
         Integer numberOfQueue = random.nextInt(100);
-        for (int i = 0; i < 100_000; i++) {
+        for (int i = 0; i < 100; i++) {
             queue.add("user username" + (i + 1) + "(queue" + numberOfQueue + ")");
         }
         return queue;
@@ -51,6 +51,7 @@ public class Main {
                 while (!queueList.get(i).isEmpty()) {
                     System.out.println(queueList.get(i).element() + " served by thread: " + Thread.currentThread().getId());
                     list.add(queueList.get(i).poll());
+                    TimeUnit.MILLISECONDS.sleep(10);
                 }
             }
             return list;

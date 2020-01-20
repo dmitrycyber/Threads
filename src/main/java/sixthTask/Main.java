@@ -4,7 +4,7 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static CyclicBarrier cyclicBarrier = new CyclicBarrier(6);
+    private static CyclicBarrier cyclicBarrier = new CyclicBarrier(6);
 
     public static void main(String[] args) {
         while (true) {
@@ -31,7 +31,7 @@ public class Main {
         }
     }
 
-    public static void sleep(int seconds) {
+    private static void sleep(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
         } catch (InterruptedException e) {

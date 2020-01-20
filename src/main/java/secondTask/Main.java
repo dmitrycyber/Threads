@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static Queue<String> queue = new LinkedList();
-    public static Random random = new Random();
 
     public static void main(String[] args) {
         new Thread(new Producer()).start();

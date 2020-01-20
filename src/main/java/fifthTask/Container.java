@@ -16,7 +16,7 @@ public class Container {
 
     private Queue<String> generateQueue() {
         Queue<String> queue = new ConcurrentLinkedQueue<>();
-        for (int i = 0; i < 100_000; i++) {
+        for (int i = 0; i < 100; i++) {
             queue.add("user" + i + "queue" + random.nextInt(100));
         }
         return queue;

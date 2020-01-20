@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 public class Task implements Callable<List<String>> {
     private List<String> userNameList;
@@ -18,7 +19,7 @@ public class Task implements Callable<List<String>> {
     }
 
     @Override
-    public List<String> call() {
+    public List<String> call() throws InterruptedException {
         while (!container.isQueuesEmpty()) {
             if (queue.isEmpty()) {
                 queue = container.getRandomQueue();
@@ -28,6 +29,7 @@ public class Task implements Callable<List<String>> {
                 userNameList.add(poll);
                 System.out.println(poll + "_done_by_thread_" + Thread.currentThread().getId());
             }
+            TimeUnit.MILLISECONDS.sleep(10);
         }
         return userNameList;
     }
