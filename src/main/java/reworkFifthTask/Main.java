@@ -11,18 +11,18 @@ public class Main {
         Container container = new Container();
         List<String> userNameList = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10; i++) {
-            executorService.submit(new Task(container, userNameList));
-        }
-        sleep(4000);
-        System.out.println("Count of usernames is: " + userNameList.size());
-    }
+        List<Task> taskList = new ArrayList<>();
 
-    private static void sleep(int millis) {
-        try {
-            TimeUnit.MILLISECONDS.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        long before = System.currentTimeMillis();
+        for (int i = 0; i < 10; i++) {
+            taskList.add(new Task(container, userNameList));
         }
+        executorService.invokeAll(taskList);
+        long after = System.currentTimeMillis();
+
+        System.out.println("Count of usernames is: " + userNameList.size());
+        System.out.println("Time of executing is: " + (after - before) + " millis");
+
+        executorService.shutdown();
     }
 }

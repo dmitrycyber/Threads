@@ -2,12 +2,13 @@ package reworkFifthTask;
 
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.Callable;
 
-public class Task implements Runnable {
-    List<Queue<String>> queueList;
-    List<String> userNameList;
-    Container container;
-    Queue<String> queue;
+public class Task implements Callable<Integer> {
+    private List<Queue<String>> queueList;
+    private List<String> userNameList;
+    private Container container;
+    private Queue<String> queue;
 
     public Task(Container container, List<String> userNameList) {
         this.container = container;
@@ -17,7 +18,7 @@ public class Task implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Integer call() throws Exception {
         while (!container.isQueuesEmpty()) {
             if (queue.isEmpty()) {
                 queue = container.getRandomQueue();
@@ -33,5 +34,6 @@ public class Task implements Runnable {
                 System.out.println(poll + "_done_by_thread_" + Thread.currentThread().getId());
             }
         }
+        return null;
     }
 }
